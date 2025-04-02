@@ -1,17 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 enum UrgencyLevel {
-  1
-  2
-  3
-  4
-  5
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
 }
 
 enum ItemType {
-  TYPE1
-  TYPE2
-  TYPE3
-  TYPE4
-  TYPE5
+  CABINET
+  CONECTORS
+  KEYBOARD
+  MOBILES
+  MONITOR
+  MOUSE
+  NOTEBOOKS
+  PRINTER
+  RECYCLESERVICES
+  SACANNER
+  SUPORTSERVICES
+  TABLETS
 }
 
 enum ConditionType {
@@ -23,16 +45,17 @@ enum ConditionType {
 }
 
 model School {
-  id              Int     @id @default(autoincrement())
-  name            String
-  street         String
-  number         String
-  postalCode     String
-  neighbourhood  String
-  unprivilegedArea Boolean
-  urgency        UrgencyLevel
+  id                 Int          @id @default(autoincrement())
+  name               String
+  street             String
+  number             String
+  postalCode         String
+  neighbourhood      String
+  unprivilegedArea   Boolean
+  urgency            UrgencyLevel
   quantityOfStudents Int?
-  availability   String  // Example: "Mon-Fri 08:00-12:00"
+  availability       String // Example: "Mon-Fri 08:00-12:00"
+  Item               Item[]
 }
 
 model Donor {
@@ -41,14 +64,15 @@ model Donor {
   name     String?
   document String
   mobile   String
+  Item     Item[]
 }
 
 model Item {
-  id        Int         @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   item      ItemType
   condition ConditionType
-  donor     Donor?     @relation(fields: [donorId], references: [id])
-  donorId   Int?
-  school    School?    @relation(fields: [schoolId], references: [id])
-  schoolId  Int?
+  donor     Donor        @relation(fields: [donorId], references: [id])
+  donorId   Int
+  school    School       @relation(fields: [schoolId], references: [id])
+  schoolId  Int
 }
