@@ -1,0 +1,54 @@
+enum UrgencyLevel {
+  1
+  2
+  3
+  4
+  5
+}
+
+enum ItemType {
+  TYPE1
+  TYPE2
+  TYPE3
+  TYPE4
+  TYPE5
+}
+
+enum ConditionType {
+  NEW
+  GOOD
+  FAIR
+  POOR
+  BROKEN
+}
+
+model School {
+  id              Int     @id @default(autoincrement())
+  name            String
+  street         String
+  number         String
+  postalCode     String
+  neighbourhood  String
+  unprivilegedArea Boolean
+  urgency        UrgencyLevel
+  quantityOfStudents Int?
+  availability   String  // Example: "Mon-Fri 08:00-12:00"
+}
+
+model Donor {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  document String
+  mobile   String
+}
+
+model Item {
+  id        Int         @id @default(autoincrement())
+  item      ItemType
+  condition ConditionType
+  donor     Donor?     @relation(fields: [donorId], references: [id])
+  donorId   Int?
+  school    School?    @relation(fields: [schoolId], references: [id])
+  schoolId  Int?
+}

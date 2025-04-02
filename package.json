@@ -17,7 +17,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "localseed": "dotenv -e .env.local -- npx prisma migrate dev --name init && dotenv -e .env.local -- ts-node prisma/seed.ts",
+    "localstudio": "dotenv -e .env.local -- npx prisma studio",
+    "dockerseed": "dotenv -e .env.docker -- npx prisma migrate deploy && dotenv -e .env.docker -- ts-node prisma/seed.ts",
+    "gitdockerseed": "npx prisma migrate deploy && ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -41,6 +45,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "jest": "^29.5.0",
     "prettier": "^3.0.0",
+    "prisma": "^6.5.0",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.0",
