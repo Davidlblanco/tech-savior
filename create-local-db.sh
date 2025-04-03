@@ -28,5 +28,5 @@ npx prisma migrate dev --name init
 # seed the database
 npx ts-node prisma/seed.ts
 
-
-
+# run turio
+npx prisma studio
