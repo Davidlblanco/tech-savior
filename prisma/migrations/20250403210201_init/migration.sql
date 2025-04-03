@@ -19,6 +19,8 @@ CREATE TABLE "School" (
     "urgency" "UrgencyLevel" NOT NULL,
     "quantityOfStudents" INTEGER,
     "availability" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
 
     CONSTRAINT "School_pkey" PRIMARY KEY ("id")
 );
@@ -27,6 +29,7 @@ CREATE TABLE "School" (
 CREATE TABLE "Donor" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
+    "site" TEXT NOT NULL,
     "name" TEXT,
     "document" TEXT NOT NULL,
     "mobile" TEXT NOT NULL,
@@ -47,6 +50,9 @@ CREATE TABLE "Item" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Donor_email_key" ON "Donor"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Donor_document_key" ON "Donor"("document");
 
 -- AddForeignKey
 ALTER TABLE "Item" ADD CONSTRAINT "Item_donorId_fkey" FOREIGN KEY ("donorId") REFERENCES "Donor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

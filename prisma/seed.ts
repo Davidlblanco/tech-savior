@@ -21,6 +21,8 @@ async function main() {
       urgency: 'THREE',
       quantityOfStudents: 500,
       availability: 'Mon-Fri 08:00-16:00',
+      phone: '99999999',
+      email: 'school@school.com',
     },
   });
 
@@ -31,6 +33,7 @@ async function main() {
       name: 'Generous Donor',
       document: '123456789',
       mobile: '+1234567890',
+      site: 'www.example.com',
     },
   });
 
