@@ -25,7 +25,8 @@ docker exec -it tech-savior-psql psql -U postgres -c "\l"
 # migrate prisma schema
 npx prisma migrate dev --name init
 
-
+# seed the database
+npx ts-node prisma/seed.ts
 
 
 
