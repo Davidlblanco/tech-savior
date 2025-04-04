@@ -30,8 +30,13 @@ export class SchoolController {
   async getAllSchools(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
+    @Query('search') search?: string,
   ) {
-    return this.schoolService.getAllSchools(Number(page), Number(limit));
+    return this.schoolService.getAllSchools(
+      Number(page),
+      Number(limit),
+      search,
+    );
   }
 
   @Get(':id')

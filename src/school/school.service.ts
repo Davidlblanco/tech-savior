@@ -10,11 +10,22 @@ export class SchoolService {
     return this.prisma.school.create({ data });
   }
 
-  async getAllSchools(page: number, limit: number) {
+  async getAllSchools(page: number, limit: number, search?: string) {
     const skip = (page - 1) * limit;
+    const where = search
+      ? {
+          OR: [
+            { document: { contains: search } },
+            { email: { contains: search } },
+            { name: { contains: search } },
+          ],
+        }
+      : {};
+
     return this.prisma.school.findMany({
       skip,
       take: limit,
+      where,
     });
   }
 

@@ -53,11 +53,11 @@ model School {
   neighbourhood      String
   unprivilegedArea   Boolean
   urgency            UrgencyLevel
-  quantityOfStudents Int?
+  quantityOfStudents? Int?
   availability       String // Example: "Mon-Fri 08:00-12:00"
   Item               Item[]
-  phone              String
-  email              String
+  phone?              String
+  email?              String
 }
 
 model Donor {
