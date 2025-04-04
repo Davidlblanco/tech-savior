@@ -1,0 +1,276 @@
+{
+  "info": {
+    "_postman_id": "18bb674a-6f96-46be-85aa-484dfe981c01",
+    "name": "Tech Savior API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "6177562"
+  },
+  "item": [
+    {
+      "name": "Items",
+      "item": [
+        {
+          "name": "Create Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item\": \"NOTEBOOKS\",\n  \"name\":\"notebook louco!\",\n  \"condition\": \"GOOD\",\n  \"donorId\": 1,\n  \"schoolId\": 1\n}"
+            },
+            "url": "{{apiUrl}}/items"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/items?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["items"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": "samsung",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Item By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{apiUrl}}/items/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"condition\": \"NEW\"\n}"
+            },
+            "url": "{{apiUrl}}/items/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{apiUrl}}/items/1"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Donors",
+      "item": [
+        {
+          "name": "Create Donor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"greatestDonor2@example.com\",\n  \"site\": \"www.greatest.com\",\n  \"name\": \"Greatest Donor\",\n  \"document\": \"45678989380\",\n  \"mobile\": \"+1234567890\"\n}"
+            },
+            "url": "{{apiUrl}}/donors"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Donors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/donors?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["donors"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": "Generous",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Donor By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{apiUrl}}/donors/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Donor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Donor Name\",\n  \"mobile\": \"+9876543210\"\n}"
+            },
+            "url": "{{apiUrl}}/donors/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Donor",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{apiUrl}}/donors/6"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Schools",
+      "item": [
+        {
+          "name": "Create School",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tech Savior School\",\n  \"street\": \"123 Main St\",\n  \"number\": \"456\",\n  \"postalCode\": \"12345\",\n  \"neighbourhood\": \"Downtown\",\n  \"unprivilegedArea\": true,\n  \"urgency\": \"THREE\",\n  \"quantityOfStudents\": 500,\n  \"availability\": \"Mon-Fri 08:00-16:00\",\n  \"phone\": \"1234567890\",\n  \"email\": \"school@example.com\"\n}"
+            },
+            "url": "{{apiUrl}}/schools"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Schools",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/schools?page=1&limit=10&search=Tech",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["schools"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": "Tech"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get School By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{apiUrl}}/schools/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Update School",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated School Name\",\n  \"phone\": \"9876543210\"\n}"
+            },
+            "url": "{{apiUrl}}/schools/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete School",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{apiUrl}}/schools/1"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
