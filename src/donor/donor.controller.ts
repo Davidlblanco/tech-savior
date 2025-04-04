@@ -20,7 +20,13 @@ export class DonorController {
   @Post()
   async createDonor(@Body() createDonorDto: CreateDonorDto) {
     try {
-      return await this.donorService.createDonor(createDonorDto);
+      const donor = await this.donorService.createDonor(createDonorDto);
+
+      return {
+        id: donor.id,
+        name: donor.name,
+        message: 'Succesfully created!',
+      };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -50,7 +56,11 @@ export class DonorController {
     @Body() updateDonorDto: Partial<CreateDonorDto>,
   ) {
     try {
-      return await this.donorService.updateDonor(Number(id), updateDonorDto);
+      const donor = await this.donorService.updateDonor(
+        Number(id),
+        updateDonorDto,
+      );
+      return { donor, message: 'Succesfully updated!' };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

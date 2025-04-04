@@ -42,18 +42,21 @@ async function main() {
     data: [
       {
         item: 'NOTEBOOKS',
+        name: 'NOTEBOOK samsung',
         condition: 'GOOD',
         donorId: donor.id,
         schoolId: school.id,
       },
       {
         item: 'MONITOR',
+        name: 'monitor dell',
         condition: 'NEW',
         donorId: donor.id,
         schoolId: school.id,
       },
       {
         item: 'MOUSE',
+        name: 'mouse logitec',
         condition: 'FAIR',
         donorId: donor.id,
         schoolId: school.id,

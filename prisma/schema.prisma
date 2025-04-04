@@ -53,11 +53,11 @@ model School {
   neighbourhood      String
   unprivilegedArea   Boolean
   urgency            UrgencyLevel
-  quantityOfStudents? Int?
+  quantityOfStudents Int?
   availability       String // Example: "Mon-Fri 08:00-12:00"
   Item               Item[]
-  phone?              String
-  email?              String
+  phone              String?
+  email              String?
 }
 
 model Donor {
@@ -73,6 +73,7 @@ model Donor {
 model Item {
   id        Int           @id @default(autoincrement())
   item      ItemType
+  name      String
   condition ConditionType
   donor     Donor        @relation(fields: [donorId], references: [id])
   donorId   Int

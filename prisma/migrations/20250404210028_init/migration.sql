@@ -19,8 +19,8 @@ CREATE TABLE "School" (
     "urgency" "UrgencyLevel" NOT NULL,
     "quantityOfStudents" INTEGER,
     "availability" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
+    "phone" TEXT,
+    "email" TEXT,
 
     CONSTRAINT "School_pkey" PRIMARY KEY ("id")
 );
@@ -41,6 +41,7 @@ CREATE TABLE "Donor" (
 CREATE TABLE "Item" (
     "id" SERIAL NOT NULL,
     "item" "ItemType" NOT NULL,
+    "name" TEXT NOT NULL,
     "condition" "ConditionType" NOT NULL,
     "donorId" INTEGER NOT NULL,
     "schoolId" INTEGER NOT NULL,
