@@ -14,11 +14,7 @@ export class SchoolService {
     const skip = (page - 1) * limit;
     const where = search
       ? {
-          OR: [
-            { document: { contains: search } },
-            { email: { contains: search } },
-            { name: { contains: search } },
-          ],
+          OR: [{ email: { contains: search } }, { name: { contains: search } }],
         }
       : {};
 

@@ -9,15 +9,18 @@ import {
   HttpException,
   HttpStatus,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './item.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('items')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   async createItem(@Body() createItemDto: CreateItemDto) {
     try {
       const itemCreateInput = {
@@ -53,6 +56,7 @@ export class ItemController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard)
   async updateItem(
     @Param('id') id: string,
     @Body() updateItemDto: Partial<CreateItemDto>,
@@ -66,6 +70,7 @@ export class ItemController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   async deleteItem(@Param('id') id: string) {
     try {
       await this.itemService.deleteItem(Number(id));

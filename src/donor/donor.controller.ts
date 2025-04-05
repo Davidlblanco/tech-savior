@@ -9,15 +9,18 @@ import {
   HttpException,
   HttpStatus,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { DonorService } from './donor.service';
 import { CreateDonorDto } from './donor.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('donors')
 export class DonorController {
   constructor(private readonly donorService: DonorService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   async createDonor(@Body() createDonorDto: CreateDonorDto) {
     try {
       const donor = await this.donorService.createDonor(createDonorDto);
@@ -51,6 +54,7 @@ export class DonorController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard)
   async updateDonor(
     @Param('id') id: string,
     @Body() updateDonorDto: Partial<CreateDonorDto>,
@@ -67,6 +71,7 @@ export class DonorController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   async deleteDonor(@Param('id') id: string) {
     try {
       await this.donorService.deleteDonor(Number(id));
