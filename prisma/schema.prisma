@@ -44,6 +44,13 @@ enum ConditionType {
   BROKEN
 }
 
+enum Badges {
+  FIRST_DONATION
+  TECH_SAVIOR
+  ECO_HERO
+  EDUCATION_ALLY
+}
+
 model School {
   id                 Int          @id @default(autoincrement())
   name               String
@@ -53,21 +60,23 @@ model School {
   neighbourhood      String
   unprivilegedArea   Boolean
   urgency            UrgencyLevel
-  quantityOfStudents Int?
+  quantityOfStudents Int
   availability       String // Example: "Mon-Fri 08:00-12:00"
   Item               Item[]
   phone              String?
-  email              String?
+  email              String @unique
+  password           String
 }
 
 model Donor {
   id       Int     @id @default(autoincrement())
   email    String  @unique
-  site     String
+  site     String?
   name     String?
   document String  @unique
   mobile   String
   Item     Item[]
+  Badges   Badges[]
 }
 
 model Item {

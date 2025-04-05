@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -8,6 +9,9 @@ async function main() {
     console.log('Your db was already seeded! 🐣');
     return;
   }
+
+  // Hash the password
+  const hashedPassword = await bcrypt.hash('123456', 10); // 10 is the salt rounds
 
   // Create a school
   const school = await prisma.school.create({
@@ -23,6 +27,7 @@ async function main() {
       availability: 'Mon-Fri 08:00-16:00',
       phone: '99999999',
       email: 'school@school.com',
+      password: hashedPassword, // Use the hashed password
     },
   });
 
@@ -44,8 +49,8 @@ async function main() {
         item: 'NOTEBOOKS',
         name: 'NOTEBOOK samsung',
         condition: 'GOOD',
-        donorId: donor.id,
-        schoolId: school.id,
+        donorId: donor.id, // Use donorId for relation
+        schoolId: school.id, // Use schoolId for relation
       },
       {
         item: 'MONITOR',

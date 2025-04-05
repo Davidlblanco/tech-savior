@@ -5,6 +5,7 @@ import {
   IsInt,
   IsEnum,
   IsEmail,
+  MinLength,
 } from 'class-validator';
 import { UrgencyLevel } from '@prisma/client';
 
@@ -32,14 +33,19 @@ export class CreateSchoolDto {
 
   @IsOptional()
   @IsInt()
-  quantityOfStudents?: number;
+  quantityOfStudents: number;
 
   @IsString()
   availability: string;
 
+  @IsOptional()
   @IsString()
-  phone: string;
+  phone?: string;
 
   @IsEmail()
   email: string;
+
+  @IsString()
+  @MinLength(6, { message: 'Password must be at least 6 characters long' })
+  password: string;
 }

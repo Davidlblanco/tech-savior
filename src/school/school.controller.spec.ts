@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SchoolController } from './school.controller';
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './school.dto';
+import * as bcrypt from 'bcrypt';
 
 describe('SchoolController', () => {
   let controller: SchoolController;
@@ -33,7 +34,7 @@ describe('SchoolController', () => {
   });
 
   describe('createSchool', () => {
-    it('should create a school', async () => {
+    it('should create a school with a hashed password', async () => {
       const dto: CreateSchoolDto = {
         name: 'Test School',
         street: '123 Test St',
@@ -46,13 +47,20 @@ describe('SchoolController', () => {
         availability: 'Mon-Fri 08:00-16:00',
         phone: '1234567890',
         email: 'test@school.com',
+        password: '123456',
       };
 
-      mockSchoolService.createSchool.mockResolvedValue(dto);
+      const hashedPassword = await bcrypt.hash(dto.password, 10);
+      const expectedResult = { ...dto, password: hashedPassword };
+
+      mockSchoolService.createSchool.mockResolvedValue(expectedResult);
 
       const result = await controller.createSchool(dto);
-      expect(result).toEqual(dto);
-      expect(mockSchoolService.createSchool).toHaveBeenCalledWith(dto);
+      expect(result).toEqual(expectedResult);
+      expect(mockSchoolService.createSchool).toHaveBeenCalledWith({
+        ...dto,
+        password: hashedPassword,
+      });
     });
   });
 
@@ -65,9 +73,13 @@ describe('SchoolController', () => {
 
       mockSchoolService.getAllSchools.mockResolvedValue(schools);
 
-      const result = await controller.getAllSchools(1, 10);
+      const result = await controller.getAllSchools(1, 10, 'searchTerm');
       expect(result).toEqual(schools);
-      expect(mockSchoolService.getAllSchools).toHaveBeenCalledWith(1, 10);
+      expect(mockSchoolService.getAllSchools).toHaveBeenCalledWith(
+        1,
+        10,
+        'searchTerm',
+      );
     });
   });
 

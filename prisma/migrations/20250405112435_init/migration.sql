@@ -7,6 +7,9 @@ CREATE TYPE "ItemType" AS ENUM ('CABINET', 'CONECTORS', 'KEYBOARD', 'MOBILES', '
 -- CreateEnum
 CREATE TYPE "ConditionType" AS ENUM ('NEW', 'GOOD', 'FAIR', 'POOR', 'BROKEN');
 
+-- CreateEnum
+CREATE TYPE "Badges" AS ENUM ('FIRST_DONATION', 'TECH_SAVIOR', 'ECO_HERO', 'EDUCATION_ALLY');
+
 -- CreateTable
 CREATE TABLE "School" (
     "id" SERIAL NOT NULL,
@@ -17,10 +20,11 @@ CREATE TABLE "School" (
     "neighbourhood" TEXT NOT NULL,
     "unprivilegedArea" BOOLEAN NOT NULL,
     "urgency" "UrgencyLevel" NOT NULL,
-    "quantityOfStudents" INTEGER,
+    "quantityOfStudents" INTEGER NOT NULL,
     "availability" TEXT NOT NULL,
     "phone" TEXT,
-    "email" TEXT,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
 
     CONSTRAINT "School_pkey" PRIMARY KEY ("id")
 );
@@ -29,10 +33,11 @@ CREATE TABLE "School" (
 CREATE TABLE "Donor" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
-    "site" TEXT NOT NULL,
+    "site" TEXT,
     "name" TEXT,
     "document" TEXT NOT NULL,
     "mobile" TEXT NOT NULL,
+    "Badges" "Badges"[],
 
     CONSTRAINT "Donor_pkey" PRIMARY KEY ("id")
 );
@@ -48,6 +53,9 @@ CREATE TABLE "Item" (
 
     CONSTRAINT "Item_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "School_email_key" ON "School"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Donor_email_key" ON "Donor"("email");
