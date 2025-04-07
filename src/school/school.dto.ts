@@ -31,7 +31,6 @@ export class CreateSchoolDto {
   @IsEnum(UrgencyLevel)
   urgency: UrgencyLevel;
 
-  @IsOptional()
   @IsInt()
   quantityOfStudents: number;
 

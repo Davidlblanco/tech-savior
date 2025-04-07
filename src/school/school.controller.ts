@@ -55,6 +55,7 @@ export class SchoolController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard)
   async updateSchool(
     @Param('id') id: string,
     @Body() updateSchoolDto: Partial<CreateSchoolDto>,
@@ -72,6 +73,7 @@ export class SchoolController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   async deleteSchool(@Param('id') id: string) {
     try {
       await this.schoolService.deleteSchool(Number(id));
