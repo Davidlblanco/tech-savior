@@ -6,6 +6,7 @@ import {
   IsEnum,
   IsEmail,
   MinLength,
+  Min,
 } from 'class-validator';
 import { UrgencyLevel } from '@prisma/client';
 
@@ -32,6 +33,7 @@ export class CreateSchoolDto {
   urgency: UrgencyLevel;
 
   @IsInt()
+  @Min(1, { message: 'Quantity of students must be greater than 0' })
   quantityOfStudents: number;
 
   @IsString()

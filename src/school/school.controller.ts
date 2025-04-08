@@ -9,10 +9,12 @@ import {
   HttpException,
   HttpStatus,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './school.dto';
 import * as bcrypt from 'bcrypt';
+import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('schools')
 export class SchoolController {
   constructor(private readonly schoolService: SchoolService) {}

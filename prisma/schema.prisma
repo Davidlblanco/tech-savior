@@ -76,7 +76,7 @@ model Donor {
   document String  @unique
   mobile   String
   Item     Item[]
-  Badges   Badges[]
+  badges   Badges[]
 }
 
 model Item {

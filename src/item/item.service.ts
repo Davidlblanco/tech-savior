@@ -7,7 +7,6 @@ export class ItemService {
   constructor(private prisma: PrismaService) {}
 
   async createItem(data: Prisma.ItemCreateInput) {
-    console.log({ data });
     return this.prisma.item.create({ data });
   }
 

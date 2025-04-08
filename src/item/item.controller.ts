@@ -14,10 +14,14 @@ import {
 import { ItemService } from './item.service';
 import { CreateItemDto } from './item.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { BadgeService } from 'src/badges/badges.service';
 
 @Controller('items')
 export class ItemController {
-  constructor(private readonly itemService: ItemService) {}
+  constructor(
+    private readonly itemService: ItemService,
+    private readonly badgeService: BadgeService,
+  ) {}
 
   @Post()
   @UseGuards(AuthGuard)
@@ -30,7 +34,9 @@ export class ItemController {
         donor: { connect: { id: createItemDto.donorId } },
         school: { connect: { id: createItemDto.schoolId } },
       };
+
       const item = await this.itemService.createItem(itemCreateInput);
+      await this.badgeService.handleDonnorBadges(item.donorId);
       return { id: item.id, name: item.name, message: 'Succesfully created!' };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
