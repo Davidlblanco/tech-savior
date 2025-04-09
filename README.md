@@ -1,85 +1,107 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# tech-savior
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta é uma aplicação desenvolvida como trabalho de pós-graduação na FIAP **Doatecando**. O objetivo é criar uma aplicação fullstack completa que ajudará escolas públicas a conseguir doações de aparelhos eletrônicos, permitindo assim aumentar a inclusão digital nessas instituições. O sistema conta com uma gamificação para os doadores, onde eles recebem badges de acordo com o que doaram. O nome do repositório não é o nome do projeto final, e sim o nome de uma dessas badges.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A aplicação utiliza **NestJS** com **Prisma** como ORM, conectando-se a um banco de dados **PostgreSQL**. Todos os endpoints são testados com **Jest**, e há ambientes configurados no **Postman** para testes locais e de produção.
 
-## Description
+## Arquitetura
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Na arquitetura do projeto, são utilizados os conceitos de **Controllers**, **Providers** e **Modules** do NestJS.
 
-## Project setup
+- **Controllers**: Porta de entrada da aplicação, recebem requisições e enviam respostas.
+
+  ![Controllers](https://docs.nestjs.com/assets/Controllers_1.png)
+
+- **Providers**: Fornecem serviços injetáveis e podem ser compartilhados entre diferentes partes da aplicação.
+
+  ![Providers](https://docs.nestjs.com/assets/Components_1.png)
+
+- **Modules**: Organizam controllers e providers, criando a estrutura modular do NestJS.
+
+  ![Modules](https://docs.nestjs.com/assets/Modules_1.png)
+
+## Índice
+
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Maneiras de Rodar o Projeto](#maneiras-de-rodar-o-projeto)
+  - [Quick Run](#quick-run)
+  - [Dev Run](#dev-run)
+- [Arquitetura](#arquitetura)
+  - [Fluxo Simplificado da API](#fluxo-simplificado-da-api)
+  - [Estrutura de Diretórios](#estrutura-de-diretórios)
+- [Testes](#testes)
+- [Deploy](#deploy)
+- [Desafios](#desafios)
+
+## Tecnologias Utilizadas
+
+- **NestJS**
+- **Prisma ORM**
+- **PostgreSQL**
+- **Docker**
+- **Jest**
+- **GitHub Actions**
+- **Render.com**
+
+## Maneiras de Rodar o Projeto
+
+### Dev Run
+
+Para rodar o app em ambiente de desenvolvimento, siga os passos:
+
+1. Criar o banco de dados com Docker:
+
+   ```bash
+   sh create-local-db.sh
+   ```
+
+2. Instalar os pacotes Node.js:
+
+   ```bash
+   npm i
+   ```
+
+3. Rodar o app em modo de desenvolvimento:
+
+   ```bash
+   npm run dev
+   ```
+
+## Estrutura de Diretórios
+
+- `./prisma` - Schemas de dados, migrações e seed.
+- `./src` - Código-fonte da aplicação NestJS.
+  - `./src/donor` - CRUD de doadores.
+  - `./src/item` - CRUD de itens.
+  - `./src/school` - CRUD de escolas.
+  - `./src/auth` - Fluxos de autenticação.
+  - `./src/badges` - Provider responsável pela gamificação.
+- `./create-local-db.sh` - Script para criar o banco local.
+- `./Dockerfile-git` - Dockerfile para CI/CD com GitHub Actions.
+
+## Testes
+
+Os testes utilizam **Jest** e simulam chamadas aos endpoints da aplicação:
 
 ```bash
-$ npm install
+# Rodar todos os testes
+npm run test
+
+# Rodar testes em modo de desenvolvimento
+npm run test:watch
 ```
 
-## Compile and run the project
+Os arquivos `.spec.ts` contêm os testes de unidade e integração para os módulos.
 
-```bash
-# development
-$ npm run start
+## Deploy
 
-# watch mode
-$ npm run start:dev
+A aplicação conta com um processo automatizado de deploy:
 
-# production mode
-$ npm run start:prod
-```
+1. O banco de dados de produção está hospedado no **Render.com**.
+2. As secrets de produção estão armazenadas no GitHub.
+3. A GitHub Action cria uma imagem Docker de produção e a envia para o Docker Hub.
+4. O **Render.com** lê a imagem `latest` e a disponibiliza na URL:
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+   ```
+   https://tech-savior-latest.onrender.com/
+   ```
