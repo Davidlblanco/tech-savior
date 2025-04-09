@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Badges, Item } from '@prisma/client';
-// import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class BadgeService {

@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { DonorService } from './donor.service';
 import { CreateDonorDto } from './donor.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('donors')
 export class DonorController {

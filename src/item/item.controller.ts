@@ -13,8 +13,8 @@ import {
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './item.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { BadgeService } from 'src/badges/badges.service';
+import { AuthGuard } from '../auth/auth.guard';
+import { BadgeService } from '../badges/badges.service';
 
 @Controller('items')
 export class ItemController {
