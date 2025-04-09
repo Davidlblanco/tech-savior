@@ -4,6 +4,16 @@ Esta é uma aplicação desenvolvida como trabalho de pós-graduação na FIAP *
 
 A aplicação utiliza **NestJS** com **Prisma** como ORM, conectando-se a um banco de dados **PostgreSQL**. Todos os endpoints são testados com **Jest**, e há ambientes configurados no **Postman** para testes locais e de produção.
 
+## Índice
+
+- [Arquitetura](#arquitetura)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Como de Rodar o Projeto?](#como-rodar-o-projeto?)
+  - [Dev Run](#dev-run)
+  - [Estrutura de Diretórios](#estrutura-de-diretórios)
+- [Testes](#testes)
+- [Deploy](#deploy)
+
 ## Arquitetura
 
 Na arquitetura do projeto, são utilizados os conceitos de **Controllers**, **Providers** e **Modules** do NestJS.
@@ -20,19 +30,6 @@ Na arquitetura do projeto, são utilizados os conceitos de **Controllers**, **Pr
 
   ![Modules](https://docs.nestjs.com/assets/Modules_1.png)
 
-## Índice
-
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Maneiras de Rodar o Projeto](#maneiras-de-rodar-o-projeto)
-  - [Quick Run](#quick-run)
-  - [Dev Run](#dev-run)
-- [Arquitetura](#arquitetura)
-  - [Fluxo Simplificado da API](#fluxo-simplificado-da-api)
-  - [Estrutura de Diretórios](#estrutura-de-diretórios)
-- [Testes](#testes)
-- [Deploy](#deploy)
-- [Desafios](#desafios)
-
 ## Tecnologias Utilizadas
 
 - **NestJS**
@@ -43,7 +40,7 @@ Na arquitetura do projeto, são utilizados os conceitos de **Controllers**, **Pr
 - **GitHub Actions**
 - **Render.com**
 
-## Maneiras de Rodar o Projeto
+## Como de Rodar o Projeto?
 
 ### Dev Run
 
