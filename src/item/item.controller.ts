@@ -15,7 +15,14 @@ import { ItemService } from './item.service';
 import { CreateItemDto } from './item.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { BadgeService } from '../badges/badges.service';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
+@ApiTags('Items')
 @Controller('items')
 export class ItemController {
   constructor(
@@ -25,6 +32,10 @@ export class ItemController {
 
   @Post()
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Create a new item' })
+  @ApiResponse({ status: 201, description: 'Item created successfully.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async createItem(@Body() createItemDto: CreateItemDto) {
     try {
       const itemCreateInput = {
@@ -44,6 +55,11 @@ export class ItemController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all items' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of items retrieved successfully.',
+  })
   async getAllItems(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
@@ -53,6 +69,9 @@ export class ItemController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get an item by ID' })
+  @ApiResponse({ status: 200, description: 'Item retrieved successfully.' })
+  @ApiResponse({ status: 404, description: 'Item not found.' })
   async getItemById(@Param('id') id: string) {
     const item = await this.itemService.getItemById(Number(id));
     if (!item) {
@@ -63,6 +82,10 @@ export class ItemController {
 
   @Put(':id')
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update an item by ID' })
+  @ApiResponse({ status: 200, description: 'Item updated successfully.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async updateItem(
     @Param('id') id: string,
     @Body() updateItemDto: Partial<CreateItemDto>,
@@ -77,6 +100,10 @@ export class ItemController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Delete an item by ID' })
+  @ApiResponse({ status: 200, description: 'Item deleted successfully.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async deleteItem(@Param('id') id: string) {
     try {
       await this.itemService.deleteItem(Number(id));

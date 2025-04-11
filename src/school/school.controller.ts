@@ -15,11 +15,22 @@ import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './school.dto';
 import * as bcrypt from 'bcrypt';
 import { AuthGuard } from 'src/auth/auth.guard';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+
+@ApiTags('Schools')
 @Controller('schools')
 export class SchoolController {
   constructor(private readonly schoolService: SchoolService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new school' })
+  @ApiResponse({ status: 201, description: 'Succesfoly created!' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async createSchool(@Body() createSchoolDto: CreateSchoolDto) {
     try {
       createSchoolDto.password = await bcrypt.hash(
@@ -35,6 +46,11 @@ export class SchoolController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all schools' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of schools retrieved successfully.',
+  })
   async getAllSchools(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
@@ -48,6 +64,9 @@ export class SchoolController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a school by ID' })
+  @ApiResponse({ status: 200, description: 'School retrieved successfully.' })
+  @ApiResponse({ status: 404, description: 'School not found.' })
   async getSchoolById(@Param('id') id: string) {
     const school = await this.schoolService.getSchoolById(Number(id));
     if (!school) {
@@ -58,6 +77,10 @@ export class SchoolController {
 
   @Put(':id')
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update a school by ID' })
+  @ApiResponse({ status: 200, description: 'Succesfoly updated!' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async updateSchool(
     @Param('id') id: string,
     @Body() updateSchoolDto: Partial<CreateSchoolDto>,
@@ -76,6 +99,10 @@ export class SchoolController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Delete a school by ID' })
+  @ApiResponse({ status: 200, description: 'School deleted successfully.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async deleteSchool(@Param('id') id: string) {
     try {
       await this.schoolService.deleteSchool(Number(id));

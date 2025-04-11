@@ -42,6 +42,7 @@ enum ConditionType {
   FAIR
   POOR
   BROKEN
+  NO_APPLY
 }
 
 enum Badges {
