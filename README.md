@@ -11,8 +11,9 @@ A aplicação utiliza **NestJS** com **Prisma** como ORM, conectando-se a um ban
 - [Arquitetura](#arquitetura)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Como de Rodar o Projeto?](#como-rodar-o-projeto?)
+  - [Quick Run](#quick-run)
   - [Dev Run](#dev-run)
-  - [Estrutura de Diretórios](#estrutura-de-diretórios)
+- [Estrutura de Diretórios](#estrutura-de-diretórios)
 - [Testes](#testes)
 - [Deploy](#deploy)
 
@@ -43,6 +44,22 @@ Na arquitetura do projeto, são utilizados os conceitos de **Controllers**, **Pr
 - **Render.com**
 
 ## Como de Rodar o Projeto?
+
+### Quick Run
+
+Para rodar localmente sem instalar dependências, utilize o Docker Compose:
+
+```bash
+ docker compose up
+```
+
+O aplicativo estará disponível em `http://localhost:3000/`. O arquivo `.env.docker` contém as variáveis de ambiente necessárias.
+
+O banco semeado estará disponível em:
+
+```
+    npx prisma studio
+```
 
 ### Dev Run
 
@@ -91,6 +108,18 @@ npm run test:watch
 ```
 
 Os arquivos `.spec.ts` contêm os testes de unidade e integração para os módulos.
+
+## Api
+
+No repositório estão disponibilizadas 2 formas de documentação da api
+
+1. O swagger em https://tech-savior-latest.onrender.com/api#/
+2. A collection de postman e seu enviroment na Raiz do projeto.
+
+   ```
+   ./Tech Savior API.postman_collection.json
+   ./techsavior_local.postman_environment.json
+   ```
 
 ## Deploy
 

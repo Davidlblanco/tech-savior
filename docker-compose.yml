@@ -1,0 +1,32 @@
+services:
+  tech-savior-psql:
+    image: postgres
+    container_name: tech-savior-psql
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: education
+      POSTGRES_DB: techsavior
+    volumes:
+      - tech-savior:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tech-challenger-service
+    restart: always
+    env_file:
+      - .env.docker
+    ports:
+      - '3000:3000'
+    depends_on:
+      tech-savior-psql:
+        condition: service_healthy
+
+volumes:
+  tech-savior:

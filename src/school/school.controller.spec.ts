@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SchoolController } from './school.controller';
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './school.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 describe('SchoolController', () => {
   let controller: SchoolController;
