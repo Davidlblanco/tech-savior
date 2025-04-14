@@ -21,6 +21,8 @@ import {
   ApiResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
+import { Landline } from 'src/utils/LandLine';
+import { PostalCode } from 'src/utils/PostalCode';
 
 @ApiTags('Schools')
 @Controller('schools')
@@ -37,6 +39,10 @@ export class SchoolController {
         createSchoolDto.password,
         10,
       );
+      createSchoolDto.postalCode = new PostalCode(
+        createSchoolDto.postalCode,
+      ).value;
+      createSchoolDto.phone = new Landline(createSchoolDto.phone).value;
       const school = await this.schoolService.createSchool(createSchoolDto);
       delete school.password;
       return { school, message: 'Successfully created!' };
@@ -86,6 +92,12 @@ export class SchoolController {
     @Body() updateSchoolDto: Partial<CreateSchoolDto>,
   ) {
     try {
+      if (updateSchoolDto.postalCode)
+        updateSchoolDto.postalCode = new PostalCode(
+          updateSchoolDto.postalCode,
+        ).value;
+      if (updateSchoolDto.phone)
+        updateSchoolDto.phone = new Landline(updateSchoolDto.phone).value;
       const school = await this.schoolService.updateSchool(
         Number(id),
         updateSchoolDto,
