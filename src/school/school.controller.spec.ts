@@ -48,6 +48,8 @@ describe('SchoolController', () => {
         phone: '1234567890',
         email: 'test@school.com',
         password: '123456',
+        latitude: -23.55052,
+        longitude: -46.633308,
       };
 
       const hashedPassword = await bcrypt.hash(dto.password, 10);

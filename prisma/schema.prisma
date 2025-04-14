@@ -31,7 +31,7 @@ enum ItemType {
   NOTEBOOKS
   PRINTER
   RECYCLESERVICES
-  SACANNER
+  SCANNER
   SUPORTSERVICES
   TABLETS
 }
@@ -51,7 +51,6 @@ enum Badges {
   ECO_HERO
   EDUCATION_ALLY
 }
-
 model School {
   id                 Int          @id @default(autoincrement())
   name               String
@@ -62,11 +61,17 @@ model School {
   unprivilegedArea   Boolean
   urgency            UrgencyLevel
   quantityOfStudents Int
-  availability       String // Example: "Mon-Fri 08:00-12:00"
+  availability       String
   Item               Item[]
   phone              String?
   email              String @unique
   password           String
+  latitude           Float
+  longitude          Float
+
+  @@index([name])
+  @@index([postalCode])
+  @@index([street])
 }
 
 model Donor {
@@ -78,6 +83,8 @@ model Donor {
   mobile   String
   Item     Item[]
   badges   Badges[]
+
+  @@index([name])
 }
 
 model Item {
@@ -89,4 +96,8 @@ model Item {
   donorId   Int
   school    School       @relation(fields: [schoolId], references: [id])
   schoolId  Int
+
+  @@index([name])
+  @@index([condition])
+  @@index([schoolId, donorId]) // helpful for filtering by relations
 }

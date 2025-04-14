@@ -29,7 +29,7 @@ export class SchoolController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new school' })
-  @ApiResponse({ status: 201, description: 'Succesfoly created!' })
+  @ApiResponse({ status: 201, description: 'Successfully created!' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async createSchool(@Body() createSchoolDto: CreateSchoolDto) {
     try {
@@ -39,7 +39,7 @@ export class SchoolController {
       );
       const school = await this.schoolService.createSchool(createSchoolDto);
       delete school.password;
-      return { school, message: 'Succesfoly created!' };
+      return { school, message: 'Successfully created!' };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -79,7 +79,7 @@ export class SchoolController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a school by ID' })
-  @ApiResponse({ status: 200, description: 'Succesfoly updated!' })
+  @ApiResponse({ status: 200, description: 'Successfully updated!' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async updateSchool(
     @Param('id') id: string,
@@ -91,7 +91,7 @@ export class SchoolController {
         updateSchoolDto,
       );
       delete school.password;
-      return { school, message: 'Succesfoly updated!' };
+      return { school, message: 'Successfully updated!' };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

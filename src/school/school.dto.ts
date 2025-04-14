@@ -7,6 +7,7 @@ import {
   IsEmail,
   MinLength,
   Min,
+  IsNumber,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { UrgencyLevel } from '@prisma/client';
@@ -74,4 +75,12 @@ export class CreateSchoolDto {
   @IsString()
   @MinLength(6, { message: 'Password must be at least 6 characters long' })
   password: string;
+
+  @ApiProperty({ description: 'Latitude of the school' })
+  @IsNumber()
+  latitude: number;
+
+  @ApiProperty({ description: 'Longitude of the school' })
+  @IsNumber()
+  longitude: number;
 }

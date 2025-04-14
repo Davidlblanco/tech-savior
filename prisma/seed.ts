@@ -28,6 +28,8 @@ async function main() {
       phone: '99999999',
       email: 'school@school.com',
       password: hashedPassword, // Use the hashed password
+      latitude: -23.55052, // Example latitude
+      longitude: -46.633308, // Example longitude
     },
   });
 
