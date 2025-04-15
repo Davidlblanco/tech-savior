@@ -22,6 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { CPF } from 'src/utils/Cpf';
 import { Mobile } from 'src/utils/Mobile';
+import { ValidateDocument } from 'src/utils/ValidateDocument';
 
 @ApiTags('Donors') // Group all endpoints under "Donors" in Swagger
 @Controller('donors')
@@ -36,7 +37,9 @@ export class DonorController {
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async createDonor(@Body() createDonorDto: CreateDonorDto) {
     try {
-      createDonorDto.document = new CPF(createDonorDto.document).value;
+      createDonorDto.document = new ValidateDocument(
+        createDonorDto.document,
+      ).value;
       createDonorDto.mobile = new Mobile(createDonorDto.mobile).value;
 
       const donor = await this.donorService.createDonor(createDonorDto);
@@ -89,7 +92,9 @@ export class DonorController {
   ) {
     try {
       if (updateDonorDto.document)
-        updateDonorDto.document = new CPF(updateDonorDto.document).value;
+        updateDonorDto.document = new ValidateDocument(
+          updateDonorDto.document,
+        ).value;
       if (updateDonorDto.mobile)
         updateDonorDto.mobile = new Mobile(updateDonorDto.mobile).value;
       const donor = await this.donorService.updateDonor(
