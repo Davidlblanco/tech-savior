@@ -20,7 +20,6 @@ import {
   ApiResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { CPF } from 'src/utils/Cpf';
 import { Mobile } from 'src/utils/Mobile';
 import { ValidateDocument } from 'src/utils/ValidateDocument';
 

@@ -42,7 +42,8 @@ export class SchoolController {
       createSchoolDto.postalCode = new PostalCode(
         createSchoolDto.postalCode,
       ).value;
-      createSchoolDto.phone = new Landline(createSchoolDto.phone).value;
+      if (createSchoolDto.phone)
+        createSchoolDto.phone = new Landline(createSchoolDto.phone).value;
       const school = await this.schoolService.createSchool(createSchoolDto);
       delete school.password;
       return { school, message: 'Successfully created!' };
