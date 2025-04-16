@@ -40,6 +40,8 @@ Na arquitetura do projeto, são utilizados os conceitos de **Controllers**, **Pr
 - **PostgreSQL**
 - **Docker**
 - **Jest**
+- **bcrypt**
+- **JWT**
 - **GitHub Actions**
 - **Render.com**
 
