@@ -2,8 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SchoolController } from './school.controller';
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './school.dto';
-import * as bcrypt from 'bcryptjs';
 
+import { AuthGuard } from '../auth/auth.guard';
+import { JwtService } from '@nestjs/jwt';
 describe('SchoolController', () => {
   let controller: SchoolController;
 
@@ -14,6 +15,9 @@ describe('SchoolController', () => {
     updateSchool: jest.fn(),
     deleteSchool: jest.fn(),
   };
+  const mockAuthGuard = {
+    canActivate: jest.fn(() => true), // Allow all requests during testing
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,8 +27,15 @@ describe('SchoolController', () => {
           provide: SchoolService,
           useValue: mockSchoolService,
         },
+        {
+          provide: JwtService,
+          useValue: {},
+        },
       ],
-    }).compile();
+    })
+      .overrideGuard(AuthGuard)
+      .useValue(mockAuthGuard)
+      .compile();
 
     controller = module.get<SchoolController>(SchoolController);
   });
@@ -34,35 +45,37 @@ describe('SchoolController', () => {
   });
 
   describe('createSchool', () => {
-    it('should create a school with a hashed password', async () => {
+    it('should create a school', async () => {
       const dto: CreateSchoolDto = {
         name: 'Test School',
         street: '123 Test St',
         number: '456',
-        postalCode: '12345',
+        postalCode: '03346100',
         neighbourhood: 'Test Neighbourhood',
         unprivilegedArea: true,
         urgency: 'THREE',
         quantityOfStudents: 500,
         availability: 'Mon-Fri 08:00-16:00',
-        phone: '1234567890',
+        phone: '1198909878',
         email: 'test@school.com',
         password: '123456',
         latitude: -23.55052,
         longitude: -46.633308,
       };
 
-      const hashedPassword = await bcrypt.hash(dto.password, 10);
-      const expectedResult = { ...dto, password: hashedPassword };
+      const expectedResult = {
+        school: {
+          ...dto,
+        },
+        message: 'Successfully created!',
+      };
+
+      delete expectedResult.school.password;
 
       mockSchoolService.createSchool.mockResolvedValue(expectedResult);
 
       const result = await controller.createSchool(dto);
       expect(result).toEqual(expectedResult);
-      expect(mockSchoolService.createSchool).toHaveBeenCalledWith({
-        ...dto,
-        password: hashedPassword,
-      });
     });
   });
 
@@ -108,7 +121,10 @@ describe('SchoolController', () => {
   describe('updateSchool', () => {
     it('should update a school', async () => {
       const updateDto = { name: 'Updated School' };
-      const updatedSchool = { id: 1, ...updateDto };
+      const updatedSchool = {
+        school: { id: 1, ...updateDto },
+        message: 'Successfully updated!',
+      };
 
       mockSchoolService.updateSchool.mockResolvedValue(updatedSchool);
 

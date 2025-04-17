@@ -7,7 +7,9 @@ export class SchoolService {
   constructor(private prisma: PrismaService) {}
 
   async createSchool(data: Prisma.SchoolCreateInput) {
-    return this.prisma.school.create({ data });
+    const school = await this.prisma.school.create({ data });
+    delete school.password;
+    return { school, message: 'Successfully created!' };
   }
 
   async getAllSchools(page: number, limit: number, search?: string) {
@@ -30,7 +32,9 @@ export class SchoolService {
   }
 
   async updateSchool(id: number, data: Prisma.SchoolUpdateInput) {
-    return this.prisma.school.update({ where: { id }, data });
+    const school = await this.prisma.school.update({ where: { id }, data });
+    delete school.password;
+    return { school, message: 'Successfully updated!' };
   }
 
   async deleteSchool(id: number) {

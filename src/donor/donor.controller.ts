@@ -20,8 +20,8 @@ import {
   ApiResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { Mobile } from 'src/utils/Mobile';
-import { ValidateDocument } from 'src/utils/ValidateDocument';
+import { Mobile } from '../utils/Mobile';
+import { ValidateDocument } from '../utils/ValidateDocument';
 
 @ApiTags('Donors') // Group all endpoints under "Donors" in Swagger
 @Controller('donors')
@@ -43,11 +43,7 @@ export class DonorController {
 
       const donor = await this.donorService.createDonor(createDonorDto);
 
-      return {
-        id: donor.id,
-        name: donor.name,
-        message: 'Succesfully created!',
-      };
+      return donor;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -100,7 +96,7 @@ export class DonorController {
         Number(id),
         updateDonorDto,
       );
-      return { donor, message: 'Succesfully updated!' };
+      return donor;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

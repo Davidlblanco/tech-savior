@@ -7,7 +7,13 @@ export class DonorService {
   constructor(private prisma: PrismaService) {}
 
   async createDonor(data: Prisma.DonorCreateInput) {
-    return this.prisma.donor.create({ data });
+    const donor = await this.prisma.donor.create({ data });
+
+    return {
+      id: donor.id,
+      name: donor.name,
+      message: 'Succesfully created!',
+    };
   }
 
   async getAllDonors(page: number, limit: number, search?: string) {
@@ -35,7 +41,8 @@ export class DonorService {
   }
 
   async updateDonor(id: number, data: Prisma.DonorUpdateInput) {
-    return this.prisma.donor.update({ where: { id }, data });
+    const donor = await this.prisma.donor.update({ where: { id }, data });
+    return { donor, message: 'Succesfully updated!' };
   }
 
   async deleteDonor(id: number) {

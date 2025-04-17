@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "TechSaivior is health!"', () => {
-      expect(appController.getHealth()).toBe('TechSaivior is health!');
+    it('should return "TechSaivior is healthy!"', () => {
+      expect(appController.getHealth()).toBe('TechSaivior is healthy!');
     });
   });
 });

@@ -52,15 +52,20 @@ describe('DonorController', () => {
         email: 'donor@example.com',
         site: 'www.example.com',
         name: 'Generous Donor',
-        document: '123456789',
-        mobile: '+1234567890',
+        document: '625.928.640-67',
+        mobile: '11987698888',
       };
 
       const createdDonor = { id: 1, ...dto };
 
-      mockDonorService.createDonor.mockResolvedValue(createdDonor);
+      mockDonorService.createDonor.mockResolvedValue({
+        id: createdDonor.id,
+        name: createdDonor.name,
+        message: 'Succesfully created!',
+      });
 
       const result = await controller.createDonor(dto);
+
       expect(result).toEqual({
         id: createdDonor.id,
         name: createdDonor.name,
@@ -74,8 +79,8 @@ describe('DonorController', () => {
         email: 'donor@example.com',
         site: 'www.example.com',
         name: 'Generous Donor',
-        document: '123456789',
-        mobile: '+1234567890',
+        document: '625.928.640-67',
+        mobile: '11987698888',
       };
 
       mockDonorService.createDonor.mockRejectedValue(

@@ -14,15 +14,15 @@ import {
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './school.dto';
 import * as bcrypt from 'bcryptjs';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { Landline } from 'src/utils/LandLine';
-import { PostalCode } from 'src/utils/PostalCode';
+import { Landline } from '../utils/LandLine';
+import { PostalCode } from '../utils/PostalCode';
 
 @ApiTags('Schools')
 @Controller('schools')
@@ -45,8 +45,8 @@ export class SchoolController {
       if (createSchoolDto.phone)
         createSchoolDto.phone = new Landline(createSchoolDto.phone).value;
       const school = await this.schoolService.createSchool(createSchoolDto);
-      delete school.password;
-      return { school, message: 'Successfully created!' };
+
+      return school;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -103,8 +103,8 @@ export class SchoolController {
         Number(id),
         updateSchoolDto,
       );
-      delete school.password;
-      return { school, message: 'Successfully updated!' };
+
+      return school;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
